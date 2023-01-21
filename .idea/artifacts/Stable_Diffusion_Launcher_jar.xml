@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Stable-Diffusion-Launcher:jar">
+    <output-path>D:/stable-diffusion</output-path>
+    <root id="archive" name="Stable-Diffusion-Launcher.jar">
+      <element id="module-output" name="Stable-Diffusion-Launcher" />
+    </root>
+  </artifact>
+</component>
