@@ -1,7 +1,5 @@
 import javax.swing.*;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.PrintStream;
 
 public class UI extends JFrame {
     private JPanel mainPanel;
@@ -16,28 +14,19 @@ public class UI extends JFrame {
         pack();
         setVisible(true);
         setSize(1280, 720);
-        taOutput.setEditable(false);
-        taOutput.setText("Starting Stable-Diffusion" + "\n");
+        taOutput.setCaretPosition(taOutput.getDocument().getLength());
+//        taOutput.setEditable(false);
         bStop.addActionListener(e -> {
             System.out.println("Stopping Stable-Diffusion");
             Methods.executeCommand("taskkill /F /IM python.exe");
             System.exit(0);
         });
+        bOpenUI.setVisible(false);
         bOpenUI.addActionListener(e -> Methods.openWebpage("http://127.0.0.1:7860/"));
-        startStableDiffusion();
+        PrintStream printStream = new PrintStream(new CustomOutputStream(taOutput));
+        System.setOut(printStream);
+        System.setErr(printStream);
+        Main.run();
     }
-    public void startStableDiffusion() {
-        try {
-            Process process = Runtime.getRuntime().exec("start.bat");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-                taOutput.append(line + "\n");
-                if (line.equals("Running on local URL:  http://127.0.0.1:7860")) Methods.openWebpage("http://127.0.0.1:7860/");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 }

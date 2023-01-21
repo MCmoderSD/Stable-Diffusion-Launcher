@@ -29,19 +29,11 @@ public class Methods {
     }
     public static boolean isInstalled() {
         File file = new File("stable-diffusion-webui/exists");
-        if (!file.exists()) {
-            return false;
-        } else {
-            return true;
-        }
+        return file.exists();
     }
     public static boolean hasModel(String model) {
         File file = new File("stable-diffusion-webui/models/Stable-diffusion/" + model + ".ckpt");
-        if (!file.exists()) {
-            return false;
-        } else {
-            return true;
-        }
+        return file.exists();
     }
     public static void downloadFile(String fileURL, String filePath) {
         try {
@@ -57,11 +49,20 @@ public class Methods {
     }
     public static boolean hasStartBatch(){
         File file = new File("start.bat");
-        if (!file.exists()) {
-            return false;
-        } else {
-            return true;
+        return file.exists();
+    }
+    public static void startStableDiffusion() {
+        System.out.println("Starting Stable-Diffusion");
+        try {
+            Process process = Runtime.getRuntime().exec("start.bat");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+//                if (line.equals("Running on local URL:  http://127.0.0.1:7860")) Methods.openWebpage("http://127.0.0.1:7860/");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
-
 }

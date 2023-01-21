@@ -1,7 +1,5 @@
-import java.io.*;
-
 public class Main {
-    public Main() {
+    public static void run() {
         final String[] models = {"big", "small"};
         if (!Methods.isInstalled()) {
             System.out.println("Stable-Diffusion is not installed");
@@ -9,12 +7,12 @@ public class Main {
         } else {
             System.out.println("Stable-Diffusion is installed");
         }
-        for (int i = 0; i < models.length; i++) {
-            if (!Methods.hasModel(models[i])) {
-                System.out.println(models[i] + " is not installed");
-                Installer.installModel(models[i]);
+        for (String model : models) {
+            if (!Methods.hasModel(model)) {
+                System.out.println(model + " is not installed");
+                Installer.installModel(model);
             } else {
-                System.out.println(models[i] + " is installed");
+                System.out.println(model + " is installed");
             }
         }
         if (!Methods.hasStartBatch()) {
@@ -22,11 +20,11 @@ public class Main {
             Installer.installStartBatch();
         } else {
             System.out.println("start.bat is installed");
-            new UI();
+            Methods.startStableDiffusion();
         }
-
     }
+
     public static void main(String[] args) {
-        new Main();
+        new UI();
     }
 }
