@@ -15,13 +15,13 @@ public class UI extends JFrame {
         setVisible(true);
         setSize(1280, 720);
         taOutput.setCaretPosition(taOutput.getDocument().getLength());
-//        taOutput.setEditable(false);
+        taOutput.setEditable(false);
         bStop.addActionListener(e -> {
             System.out.println("Stopping Stable-Diffusion");
             Methods.executeCommand("taskkill /F /IM python.exe");
             System.exit(0);
         });
-        bOpenUI.setVisible(false);
+//        bOpenUI.setVisible(false);
         bOpenUI.addActionListener(e -> Methods.openWebpage("http://127.0.0.1:7860/"));
         PrintStream printStream = new PrintStream(new CustomOutputStream(taOutput));
         System.setOut(printStream);
